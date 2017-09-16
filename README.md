@@ -11,12 +11,12 @@ var key = ''; // insert your key here
 
 var client = new btcmarkets(key, secret);
 
-client.accountBalance(function(e, data) {
-    console.log(data)
+client.accountBalance().then(response => {
+    console.log(response.data)
 })
 
-client.tradingFee('AUD', 'BTC', function (e, data) {
-    console.log(data)
+client.tradingFee('AUD', 'BTC').then(response => {
+    console.log(response.data)
 })
 ```
 
