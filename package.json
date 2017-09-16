@@ -1,6 +1,6 @@
 {
   "name": "btcmarkets-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "btcmarkets.net API client for node.js",
   "keywords": [
     "btc",
@@ -34,6 +34,7 @@
     "email": "mat@matmunn.me"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "lodash": "^4.17.4"
   }
 }

@@ -1,5 +1,5 @@
 var hmac = require("crypto").createHmac,
-    https = require('https'),
+    axios = require('axios'),
     isEqual = require('lodash').isEqual;
 
 function btcmarkets (key, secret) {
@@ -7,7 +7,7 @@ function btcmarkets (key, secret) {
     self.key = key;
     self.secret = secret;
 
-    var request = function(path, reqOptions, postdata, callback) {
+    var request = function(path, reqOptions, postdata) {
         var nonce = new Date().getTime();
 
         var postdata = postdata || {};
@@ -24,11 +24,9 @@ function btcmarkets (key, secret) {
         var sign = signedMessage.digest('base64');
 
         var options = {
-            rejectUnauthorized: false,
-            method: reqOptions.method !== undefined ? reqOptions.methd : 'POST',
-            host: 'api.btcmarkets.net',
-            port: 443,
-            path: path,
+            baseURL: 'https://api.btcmarkets.net/',
+            method: reqOptions.method !== undefined ? reqOptions.method : 'post',
+            url: path,
             headers: {
                 'Accept': 'application/json',
                 'Accept-Charset': 'UTF-8',
@@ -39,41 +37,29 @@ function btcmarkets (key, secret) {
             }
         };
 
-        var req = https.request(options, resp => {
-            var data = '';
-            resp.on('data', function(chunk){
-                data += chunk;
-            });
-            resp.on('end', function(chunk){
-                callback(null, data);
-            });
-        }).on("error", function(e){
-            callback(e, data);
-        });
-
         if (!isEqual(postdata, {})) {
-            req.write(JSON.stringify(postdata));
+            options.data = postdata;
         }
-        req.end();
+        return axios.request(options)
     }
 
-    self.accountBalance = callback => {
-        request('/account/balance', { method: 'GET' }, undefined, callback);
+    self.accountBalance = () => {
+        return request('/account/balance', { method: 'get' }, undefined);
     }
 
-    self.tradingFee = (currency, instrument, callback) => {
-        request(`/account/${instrument}/${currency}/tradingfee`, { method: 'GET' }, undefined, callback);
+    self.tradingFee = (currency, instrument) => {
+        return request(`/account/${instrument}/${currency}/tradingfee`, { method: 'GET' }, undefined);
     }
 
-    self.openOrders = (currency, instrument, callback) => {
-        request('/order/open', {}, { currency, instrument, limit: 100, since: 1 }, callback);
+    self.openOrders = (currency, instrument) => {
+        return request('/order/open', {}, { currency, instrument, limit: 100, since: 1 });
     }
 
-    self.orderHistory = (currency, instrument, callback) => {
-        request('/order/history', {}, { currency, instrument, limit: 100, since: 1 }, callback);
+    self.orderHistory = (currency, instrument) => {
+        return request('/order/history', {}, { currency, instrument, limit: 100, since: 1 });
     }
 
-    self.createOrder = (currency, instrument, price, volume, orderSide, orderType, callback) => {
+    self.createOrder = (currency, instrument, price, volume, orderSide, orderType) => {
         var data = {
             currency,
             instrument,
@@ -83,11 +69,11 @@ function btcmarkets (key, secret) {
             ordertype: orderType,
             clientRequestId: 'btcmarkets-api'
         }
-        request('/order/create', {}, data, callback);
+        return request('/order/create', {}, data);
     }
 
-    self.cancelOrder = (callback, ...orderIds) => {
-        request('/order/cancel', {}, { orderIds }, callback);
+    self.cancelOrder = (...orderIds) => {
+        return request('/order/cancel', {}, { orderIds });
     }
 }
 
