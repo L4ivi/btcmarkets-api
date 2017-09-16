@@ -1,0 +1,39 @@
+{
+  "name": "btcmarkets-api",
+  "version": "0.0.1",
+  "description": "btcmarkets.net API client for node.js",
+  "keywords": [
+    "btc",
+    "bitcoin",
+    "litecoin",
+    "ltc",
+    "ethereum",
+    "ether",
+    "eth",
+    "etc",
+    "xrp",
+    "ripple",
+    "btcmarkets"
+  ],
+  "author": {
+    "name": "Mat Munn",
+    "url": "https://github.com/matmunn"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matmunn/btcmarkets-api"
+  },
+  "main": "btcmarkets.js",
+  "engines": {
+    "node": ">=6.0"
+  },
+  "bugs": {
+    "url": "https://github.com/matmunn/btcmarkets-api/issues",
+    "email": "mat@matmunn.me"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
