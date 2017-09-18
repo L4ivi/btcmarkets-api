@@ -63,8 +63,8 @@ function btcmarkets (key, secret) {
         var data = {
             currency,
             instrument,
-            price: price * 100000000,
-            volume: volume * 100000000,
+            price: Math.round(price * 100000000),
+            volume: Math.round(volume * 100000000),
             orderSide,
             ordertype: orderType,
             clientRequestId: 'btcmarkets-api'
