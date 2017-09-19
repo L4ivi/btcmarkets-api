@@ -75,6 +75,22 @@ function btcmarkets (key, secret) {
     self.cancelOrder = (...orderIds) => {
         return request('/order/cancel', {}, { orderIds });
     }
+
+    self.marketTick = (instrument, currency) => {
+        return request(`/market/${instrument}/${currency}/tick`, { method: 'get' }, undefined)
+    }
+
+    self.marketOrderbook = (instrument, currency) => {
+        return request(`/market/${instrument}/${currency}/orderbook`, { method: 'get' }, undefined)
+    }
+
+    self.marketTrades = (instrument, currency, since) => {
+        let url = `/market/${instrument}/${currency}/trades`
+        if (since !== undefined) {
+            url = `${url}?since=${since}`
+        }
+        return request(url, { method: 'get' }, undefined)
+    }
 }
 
 module.exports = btcmarkets;
