@@ -1,6 +1,6 @@
 {
   "name": "btcmarkets-api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "btcmarkets.net API client for node.js",
   "keywords": [
     "btc",
@@ -19,7 +19,13 @@
     "name": "Mat Munn",
     "url": "https://github.com/matmunn"
   },
-  "contributors": [],
+  "contributors": [
+    {
+      "name" : "Laivi Frankel",
+      "emai" : "laivi.frankel@gmail.com",
+      "url"  : "https://github.com/L4ivi"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
