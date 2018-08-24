@@ -95,6 +95,10 @@ function btcmarkets (key, secret) {
     self.withdrawEFT = (accountName, accountNumber, bankName, bsbNumber, amount) => {
         return request('/fundtransfer/withdrawEFT', {}, { accountName, accountNumber, bankName, bsbNumber, amount, currency: "AUD" });
     }
+
+    self.withdrawCrypto =  (address, amount) => {
+      return request('/fundtransfer/withdrawCrypto', {}, {address, amount, currency: "BTC"});
+    }
 }
 
 module.exports = btcmarkets;
