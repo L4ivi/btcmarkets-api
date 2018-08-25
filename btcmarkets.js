@@ -97,7 +97,7 @@ function btcmarkets (key, secret) {
     }
 
     self.withdrawCrypto =  (address, amount) => {
-      return request('/fundtransfer/withdrawCrypto', {}, {address, amount, currency: "BTC"});
+      return request('/fundtransfer/withdrawCrypto', {}, { address, amount, currency: "BTC" });
     }
 }
 
